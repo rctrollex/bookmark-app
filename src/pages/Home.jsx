@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
+import {Link} from "react-router-dom";
 
 const Home = () => {
     return (
@@ -18,8 +19,8 @@ const Home = () => {
                     </p>
 
                     <div className="flex justify-center  gap-4">
-                        <a href="#signUp" className="bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-4 rounded-lg text-white shadow-lg inline-block hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-75">Get Started</a>
-                        <a href="login" className="bg-gray-50 px-8 py-4 rounded-lg shadow-lg inline-block hover:bg-gray-200 text-indigo-600 transform hover:scale-105 transition-all duration-75">Login</a>
+                        <Link to="/signup" className="bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-4 rounded-lg text-white shadow-lg inline-block hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-75">Get Started</Link>
+                        <Link to="/login" className="bg-gray-50 px-8 py-4 rounded-lg shadow-lg inline-block hover:bg-gray-200 text-indigo-600 transform hover:scale-105 transition-all duration-75">Login</Link>
                     </div>
                 </div>
             </section>
