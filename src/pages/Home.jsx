@@ -64,13 +64,13 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+            <section className="py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white" id="#">
                 <div className="px-4 mx-auto text-center">
                     <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-indigo-200 mb-4">Start Organizing Your Links Today</h2>
                     <p className="text-gray-200 mb-8">Sign up now to experience a seamless, secure way to manage your bookmarks with Bookmark Haven and Appwrite.</p>
 
                     <div className="flex justify-center  gap-4">
-                        <a href="#signup" className="bg-white text-indigo-600 px-8 py-4 rounded-lg shadow-lg transform  hover:bg-gray-200 hover:scale-105 transition-all duration-75">Join Now</a>
+                        <Link to="/signup" className="bg-white text-indigo-600 px-8 py-4 rounded-lg shadow-lg transform  hover:bg-gray-200 hover:scale-105 transition-all duration-75">Join Now</Link>
                     </div>
                 </div>
 
