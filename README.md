@@ -22,7 +22,7 @@ A responsive bookmark management app built with React and Tailwind CSS, featurin
 
 1.  Clone the repo
     ```bash
-    git clone <your-repo-url>
+    git clone https://github.com/rctrollex/bookmark-app.git
     cd bookmark-haven
     ```
 2.  Install dependencies
