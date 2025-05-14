@@ -5,6 +5,8 @@ import {Link} from "react-router-dom";
 import BookmarkCard from "../components/BookmarkCard.jsx";
 
 const Home = () => {
+    {/*Card testing*/}
+    const card1=[{title:"Bookmark Management", url:"https://bookmark-haven.netlify.app/", category:"Bookmark Management"}];
     return (
         <div className="relative overflow-hidden">
             <Navbar />
@@ -74,7 +76,10 @@ const Home = () => {
                         <Link to="/signup" className="bg-white text-indigo-600 px-8 py-4 rounded-lg shadow-lg transform  hover:bg-gray-200 hover:scale-105 transition-all duration-75">Join Now</Link>
                     </div>
                 </div>
-                <BookmarkCard/>
+                {/*Card testing*/}
+                {card1.map((card) => (
+                    <BookmarkCard key={card.title} title={card.title} url={card.url} category={card.category}/>
+                ))}
 
             </section>
             <Footer/>
