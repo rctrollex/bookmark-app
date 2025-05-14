@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import {Link} from "react-router-dom";
+import BookmarkCard from "../components/BookmarkCard.jsx";
 
 const Home = () => {
     return (
@@ -73,6 +74,7 @@ const Home = () => {
                         <Link to="/signup" className="bg-white text-indigo-600 px-8 py-4 rounded-lg shadow-lg transform  hover:bg-gray-200 hover:scale-105 transition-all duration-75">Join Now</Link>
                     </div>
                 </div>
+                <BookmarkCard/>
 
             </section>
             <Footer/>
