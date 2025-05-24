@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {account} from "../appwrite/appwriteConfig.js";
 
 const Login = () => {
@@ -8,6 +8,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage]=useState('');
     const [successMessage, setSuccessMessage]=useState('');
     const [isLoading, setIsLoading]= useState(false);
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -18,10 +19,13 @@ const Login = () => {
         setSuccessMessage('');
         setIsLoading(true);
         try{
-            await account.createEmailSession(email, password);
+            await account.createEmailPasswordSession(email, password);
             setSuccessMessage('Successfully logged in. Redirecting...');
             setEmail('');
             setPassword('');
+            setTimeout(() => {
+                navigate('/dashboard');
+            })
         }catch (e) {
             console.log("Login Error: ", e);
             const errorMessages = {
@@ -54,6 +58,7 @@ const Login = () => {
                                     className="w-full p-3 mt-1 rounded-lg border-0 shadow-md bg-gray-100 focus:ring-2 focus:ring-indigo-600 focus:outline-none transition-all duration-300 mb-4"
                                     value={email}
                                     disabled={isLoading}
+                                    autoComplete="email"
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
@@ -66,6 +71,7 @@ const Login = () => {
                                     className="w-full p-3 mt-1 rounded-lg border-0 shadow-md focus:ring-2 focus:outline-none focus:ring-indigo-600 bg-gray-100 transition-all duration-300s mb-4"
                                     value={password}
                                     disabled={isLoading}
+                                    autoComplete="current-password"
                                     onChange={(e)=>setPassword(e.target.value)}
                                 />
                             </div>
