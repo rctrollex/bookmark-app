@@ -1,8 +1,49 @@
-import React from 'react'
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from 'react'
+import {Link, useNavigate} from "react-router-dom";
 import FormInput from "../components/FormInput.jsx";
+import {account} from "../appwrite/appwriteConfig.js";
 
-const Dashboard = ({name}) => {
+const Dashboard = () => {
+    const [userName, setUserName] = useState('');
+    const[errorMessage, setErrorMessage] = useState('');
+    const[successMessage, setSuccessMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const user = await account.get();
+                console.log(user)
+                setUserName(user.name);
+            }catch (e) {
+                console.error('Error fetching user:', e);
+                setErrorMessage('Failed to load user data. Please try logging again')
+                setTimeout(()=>{
+                    navigate('/login')
+                }, 1500);
+            }
+        };
+        fetchUser()
+    }, [navigate]);
+    const handleLogOut = async (e) => {
+        e.preventDefault();
+        setErrorMessage('');
+        setSuccessMessage('');
+        setIsLoading(true);
+        try{
+            await account.deleteSession('current')
+            setSuccessMessage("Logging Out...");
+            setTimeout(() => {
+                navigate('/');
+            },1500);
+        }catch (e) {
+            console.error("Log out error...",e)
+            setErrorMessage('Failed to log out. Please try again.');
+        }finally {
+            setIsLoading(false);
+        }
+    }
     return (
         <>
             <nav className="bg-white shadow-sm fixed w-full z-10">
@@ -11,11 +52,16 @@ const Dashboard = ({name}) => {
                         Bookmark Haven
                     </h1>
                     <div className="flex space-x-4 items-center">
-                        <span className="text-gray-600">Welcome, <span id="user-name">{name}</span></span>
-                        <button id="logout-btn"
-                                className="bg-red-600 text-white sm:px-1 sm:py-1 md:px-4 py-2 sm:text-sm rounded-lg hover:bg-red-700 transition">
-                            Log Out
-                        </button>
+                        <span className="text-gray-600">Welcome, {userName}</span>
+                        <form onSubmit={handleLogOut}>
+                            <button
+                                id="logout-btn"
+                                disabled={isLoading}
+                                className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg shadow-md hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300">
+                                {isLoading ? 'Logging Out...' : 'Log Out'}
+                            </button>
+                        </form>
+
                     </div>
                 </div>
             </nav>
@@ -38,6 +84,10 @@ const Dashboard = ({name}) => {
                     </div>
                 </div>
                 <FormInput/>
+                <div className="text-center mt-4">
+                    {errorMessage && <p className="text-red-600">{errorMessage}</p>}
+                    {successMessage && <p className="text-green-600">{successMessage}</p>}
+                </div>
             </section>
 
 

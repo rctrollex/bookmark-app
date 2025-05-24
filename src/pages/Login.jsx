@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import {account} from "../appwrite/appwriteConfig.js";
 
@@ -25,7 +25,7 @@ const Login = () => {
             setPassword('');
             setTimeout(() => {
                 navigate('/dashboard');
-            })
+            },1500);
         }catch (e) {
             console.log("Login Error: ", e);
             const errorMessages = {
