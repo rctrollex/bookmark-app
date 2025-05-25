@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import FormInput from "../components/FormInput.jsx";
 import {account} from "../appwrite/appwriteConfig.js";
+import BookmarkList from "../components/BookmarkList.jsx";
 
 const Dashboard = () => {
     const [userName, setUserName] = useState('');
@@ -96,6 +97,9 @@ const Dashboard = () => {
                 <div className="text-center mt-4">
                     {errorMessage && <p className="text-red-600">{errorMessage}</p>}
                     {successMessage && <p className="text-green-600">{successMessage}</p>}
+                </div>
+                <div>
+                    <BookmarkList/>
                 </div>
             </section>
 
