@@ -11,6 +11,8 @@ const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [showForm, setShowForm] = useState(false);
+    const [filterCategory, setFilterCategory] = useState('all');
+    const [refreshTrigger, setRefreshTrigger] = useState(true);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -53,6 +55,7 @@ const Dashboard = () => {
     const hideOrShowForm = () =>{
         setShowForm(!showForm)
     }
+
     return (
         <>
             <nav className="bg-white shadow-sm fixed w-full z-10">
@@ -80,11 +83,13 @@ const Dashboard = () => {
                     <h2 className="text-3xl font-bold text-gray-900">Your Bookmarks</h2>
                     <div className="flex space-x-4 mt-4 md:mt-0">
                         <select id="category-filter"
-                                className="p-2 bg-white  rounded-lg border-0 focus:ring-2 focus:ring-blue-500">
+                                className="p-2 bg-white  rounded-lg border-0 focus:ring-2 focus:ring-blue-500"
+                                onChange={(e) => setFilterCategory(e.target.value)}>
                             <option value="all">All Categories</option>
-                            <option value="Work">Work</option>
-                            <option value="Learning">Learning</option>
-                            <option value="Personal">Personal</option>
+                            <option value="work">Work</option>
+                            <option value="ideas">Ideas</option>
+                            <option value="personal">Personal</option>
+                            <option value="learning">Learning</option>
                         </select>
                         <button id="add-bookmark-btn"
                                 onClick={hideOrShowForm}
@@ -100,7 +105,10 @@ const Dashboard = () => {
                     {successMessage && <p className="text-green-600">{successMessage}</p>}
                 </div>
                 <div>
-                    <BookmarkList/>
+                    <BookmarkList
+                        filterCategory={filterCategory}
+                        refetchTrigger={refreshTrigger}
+                    />
                 </div>
             </section>
 

@@ -4,7 +4,7 @@ import {account, collection_id, database_id, databases} from "../appwrite/appwri
 import Loader from "./Loader.jsx";
 import {Query} from "appwrite";
 
-const BookmarkList = ({refetchTrigger}) => {
+const BookmarkList = ({refetchTrigger, filterCategory}) => {
     const[error, setError] = useState('');
     const[bookmarks, setBookmarks] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -33,18 +33,24 @@ const BookmarkList = ({refetchTrigger}) => {
     if (loading){
         return <Loader/>
     }
+
     const handleDelete = async (id) => {
         try{
             await databases.deleteDocument(database_id, collection_id, id)
             setBookmarks(prevBookmarks => prevBookmarks.filter(bookmark => bookmark.$id !== id));
         }catch (e) {
             console.log("Error deleting bookmark: ",e)
+            setError("Failed to delete Bookmark. Please try again.");
         }
 
     }
+
+    const filteredBookmarks = filterCategory === 'all'
+        ? bookmarks
+        : bookmarks.filter(bookmark => bookmark.category === filterCategory);
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {bookmarks.map((bookmark) => (
+            {filteredBookmarks.map((bookmark) => (
                 <BookmarkCard
                     key={bookmark.$id}
                     title={bookmark.name}
