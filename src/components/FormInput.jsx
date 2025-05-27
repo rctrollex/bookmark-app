@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {account, collection_id, database_id, databases, ID, Permission, Role} from "../appwrite/appwriteConfig.js";
+import BookmarkList from "./BookmarkList.jsx";
 
 const FormInput = ({hideOrShowForm}) => {
     const [bookmarkTitle, setBookmarkTitle] = useState('');
@@ -23,7 +24,9 @@ const FormInput = ({hideOrShowForm}) => {
             //Appwrite permissions
             const permissions = [
                 Permission.read(Role.user(userId)),
-                Permission.write(Role.user(userId))
+                Permission.write(Role.user(userId)),
+                Permission.update(Role.user(userId)),
+                Permission.delete(Role.user(userId))
             ]
 
             //Save bookmark
@@ -41,6 +44,7 @@ const FormInput = ({hideOrShowForm}) => {
          )
             console.log(response)
             setSuccessMessage('Successfully saved bookmark.');
+            return <BookmarkList refetchTrigger={true}/>;
         }catch (e) {
             console.log("Error saving bookmarks... ",e);
             setErrorMessage("Failed to save bookmark. Please try again.");

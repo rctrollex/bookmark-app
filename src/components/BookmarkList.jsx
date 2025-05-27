@@ -33,6 +33,15 @@ const BookmarkList = ({refetchTrigger}) => {
     if (loading){
         return <Loader/>
     }
+    const handleDelete = async (id) => {
+        try{
+            await databases.deleteDocument(database_id, collection_id, id)
+            setBookmarks(prevBookmarks => prevBookmarks.filter(bookmark => bookmark.$id !== id));
+        }catch (e) {
+            console.log("Error deleting bookmark: ",e)
+        }
+
+    }
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {bookmarks.map((bookmark) => (
@@ -41,11 +50,12 @@ const BookmarkList = ({refetchTrigger}) => {
                     title={bookmark.name}
                     url={bookmark.url}
                     category={bookmark.category}
+                    handleDelete={()=>handleDelete(bookmark.$id)}
                 />
             ))}
             <div className="mt-4">
                 {error && <p className="text-red-500">{error}</p>}
-                {bookmarks.length === 0 && <p className="text-gray-500">No bookmarks found.</p>}
+                {bookmarks.length === 0 && <p className="text-gray-500 text-center">No bookmarks found.</p>}
             </div>
         </div>
     )

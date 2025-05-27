@@ -76,7 +76,7 @@ const Dashboard = () => {
             </nav>
 
             <section className="container mx-auto  px-4 pt-20 pb-16">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 mt-4">
                     <h2 className="text-3xl font-bold text-gray-900">Your Bookmarks</h2>
                     <div className="flex space-x-4 mt-4 md:mt-0">
                         <select id="category-filter"

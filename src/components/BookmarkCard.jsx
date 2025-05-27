@@ -1,6 +1,6 @@
 import React from 'react'
 
-const BookmarkCard = ({title, url, category}) => {
+const BookmarkCard = ({title, url, category, handleEdit, handleDelete}) => {
     const categoryColors = {
         work: {border: 'border-blue-400', bg: 'bg-blue-100', text: 'text-blue-400'},
         personal:{border: 'border-green-400', bg: 'bg-green-100', text: 'text-green-600'},
@@ -14,8 +14,8 @@ const BookmarkCard = ({title, url, category}) => {
             <a href={url} className="text-blue-600 hover:underline truncate block">{url}</a>
             <p className="text-gray-600 font-medium mb-4">Category: {category}</p>
             <div className="space-x-2 inline text-white">
-                <button className="bg-blue-600 py-1 px-4 rounded-lg shadow-md hover:bg-indigo-800 cursor-pointer">Edit</button>
-                <button className="bg-red-500 py-1 px-4 rounded-lg shadown-md hover:bg-red-600 cursor-pointer">Delete</button>
+                <button className="bg-blue-600 py-1 px-4 rounded-lg shadow-md hover:bg-indigo-800 cursor-pointer" onClick={handleEdit}>Edit</button>
+                <button className="bg-red-500 py-1 px-4 rounded-lg shadown-md hover:bg-red-600 cursor-pointer" onClick={handleDelete}>Delete</button>
             </div>
 
         </div>
