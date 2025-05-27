@@ -9,12 +9,15 @@ const Dashboard = () => {
     const[errorMessage, setErrorMessage] = useState('');
     const[successMessage, setSuccessMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [showForm, setShowForm] = useState(false);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const user = await account.get();
+                const currentUser = await account.get();
+                const userId = currentUser.$id;
                 console.log(user)
                 setUserName(user.name);
             }catch (e) {
@@ -47,8 +50,7 @@ const Dashboard = () => {
     }
 
     const hideOrShowForm = () =>{
-        const formInput = document.getElementById('form-input');
-        formInput.classList.toggle('hidden');
+        setShowForm(!showForm)
     }
     return (
         <>
@@ -77,7 +79,7 @@ const Dashboard = () => {
                     <h2 className="text-3xl font-bold text-gray-900">Your Bookmarks</h2>
                     <div className="flex space-x-4 mt-4 md:mt-0">
                         <select id="category-filter"
-                                className="p-2 bg-gray-100 rounded-lg border-0 focus:ring-2 focus:ring-blue-500">
+                                className="p-2 bg-white  rounded-lg border-0 focus:ring-2 focus:ring-blue-500">
                             <option value="all">All Categories</option>
                             <option value="Work">Work</option>
                             <option value="Learning">Learning</option>
@@ -86,14 +88,12 @@ const Dashboard = () => {
                         <button id="add-bookmark-btn"
                                 onClick={hideOrShowForm}
                                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
-                            Add Bookmark
+                            {showForm ? 'Hide Form': 'Add Bookmark'}
                         </button>
                     </div>
                 </div>
 
-                <div id="form-input" className="hidden">
-                    <FormInput />
-                </div>
+                {showForm && <FormInput hideOrShowForm={hideOrShowForm} />}
                 <div className="text-center mt-4">
                     {errorMessage && <p className="text-red-600">{errorMessage}</p>}
                     {successMessage && <p className="text-green-600">{successMessage}</p>}

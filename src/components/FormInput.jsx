@@ -72,6 +72,7 @@ const FormInput = ({hideOrShowForm}) => {
                             onChange={(e)=>setCategory(e.target.value)}
                             className="w-full bg-gray-100 p-4 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none transition-all duration-300"
                         >
+                            <option value="">Select a category</option>
                             <option value="work">Work</option>
                             <option value="ideas">Ideas</option>
                             <option value="personal">Personal</option>
@@ -80,7 +81,7 @@ const FormInput = ({hideOrShowForm}) => {
                     </div>
                     <div className="mb-4 flex justify-start space-x-2">
                         <button className="bg-indigo-600 px-5 py-3 rounded-lg shadow-md hover:bg-indigo-800 cursor-pointer text-white inline" type="submit">Save</button>
-                        <button className="bg-gray-200 px-5 py-3 rounded-lg shadow-md hover:bg-gray-400 cursor-pointer text-gray-900 inline" onClick={hideOrShowForm}>Cancel</button>
+                        <button className="bg-gray-200 px-5 py-3 rounded-lg shadow-md hover:bg-gray-400 cursor-pointer text-gray-900 inline" type = "button" onClick={hideOrShowForm}>Cancel</button>
                     </div>
                     <div className="mt-4">
                         {errorMessage && <p className="text-red-600">{errorMessage}</p>}
