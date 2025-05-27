@@ -12,7 +12,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [showForm, setShowForm] = useState(false);
     const [filterCategory, setFilterCategory] = useState('all');
-    const [refreshTrigger, setRefreshTrigger] = useState(true);
+    const [refreshTrigger, setRefreshTrigger] = useState(false);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -54,6 +54,11 @@ const Dashboard = () => {
 
     const hideOrShowForm = () =>{
         setShowForm(!showForm)
+    }
+
+    const handleBookmardSaved = () =>{
+        setRefreshTrigger(!refreshTrigger);
+        setShowForm(false);
     }
 
     return (
@@ -99,7 +104,7 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {showForm && <FormInput hideOrShowForm={hideOrShowForm} />}
+                {showForm && <FormInput hideOrShowForm={hideOrShowForm} onBookmarkSaved={handleBookmardSaved} />}
                 <div className="text-center mt-4">
                     {errorMessage && <p className="text-red-600">{errorMessage}</p>}
                     {successMessage && <p className="text-green-600">{successMessage}</p>}

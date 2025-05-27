@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {account, collection_id, database_id, databases, ID, Permission, Role} from "../appwrite/appwriteConfig.js";
 import BookmarkList from "./BookmarkList.jsx";
 
-const FormInput = ({hideOrShowForm}) => {
+const FormInput = ({hideOrShowForm, onBookmarkSaved}) => {
     const [bookmarkTitle, setBookmarkTitle] = useState('');
     const [bookmarkUrl, setBookmarkUrl] = useState('');
     const [category, setCategory] = useState('');
@@ -44,7 +44,11 @@ const FormInput = ({hideOrShowForm}) => {
          )
             console.log(response)
             setSuccessMessage('Successfully saved bookmark.');
-            return <BookmarkList refetchTrigger={true}/>;
+            onBookmarkSaved();
+            setBookmarkUrl('');
+            setBookmarkTitle('');
+            setCategory('');
+            hideOrShowForm();
         }catch (e) {
             console.log("Error saving bookmarks... ",e);
             setErrorMessage("Failed to save bookmark. Please try again.");
