@@ -18,6 +18,7 @@ const Dashboard = () => {
                 const user = await account.get();
                 const currentUser = await account.get();
                 const userId = currentUser.$id;
+                console.log(userId)
                 console.log(user)
                 setUserName(user.name);
             }catch (e) {

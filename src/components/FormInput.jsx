@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {collection_id, database_id, databases} from "../appwrite/appwriteConfig.js";
+import {account, collection_id, database_id, databases, ID, Permission, Role} from "../appwrite/appwriteConfig.js";
 
 const FormInput = ({hideOrShowForm}) => {
     const [bookmarkTitle, setBookmarkTitle] = useState('');
@@ -17,15 +17,27 @@ const FormInput = ({hideOrShowForm}) => {
         setSuccessMessage('');
 
         try{
-         const response = await databases.createDocument(
+            //Current user logged in
+            const currentUser = await account.get();
+            const userId = currentUser.$id;
+            //Appwrite permissions
+            const permissions = [
+                Permission.read(Role.user(userId)),
+                Permission.write(Role.user(userId))
+            ]
+
+            //Save bookmark
+            const response = await databases.createDocument(
              database_id,
              collection_id,
-             'unique()',
+             ID.unique(),
              {
                  name: bookmarkTitle,
                  url: bookmarkUrl,
-                 category: category
-             }
+                 category: category,
+                 userId: userId,
+             },
+                permissions
          )
             console.log(response)
             setSuccessMessage('Successfully saved bookmark.');
