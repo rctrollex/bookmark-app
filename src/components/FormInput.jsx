@@ -27,6 +27,7 @@ const FormInput = ({hideOrShowForm}) => {
                  category: category
              }
          )
+            console.log(response)
             setSuccessMessage('Successfully saved bookmark.');
         }catch (e) {
             console.log("Error saving bookmarks... ",e);
