@@ -2,9 +2,11 @@ import React from 'react'
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import {Link} from "react-router-dom";
-import BookmarkCard from "../components/BookmarkCard.jsx";
-import FormInput from "../components/FormInput.jsx";
-import Dashboard from "./Dashboard.jsx";
+import addIcon from "../assets/addIcon.svg"
+import categorizeLogo from "../assets/categorizeLogo.svg"
+import secureLogo from "../assets/secureLogo.svg"
+import cloudLogo from "../assets/cloudLogo.svg"
+
 
 const Home = () => {
     return (
@@ -34,7 +36,7 @@ const Home = () => {
                     <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-3">
                         <div className="bg-gray-50 p-6 rounded-2xl shadow-lg transform hover:translate-y-1 transition-all duration-300">
                             <div className="flex justify-start">
-                                <img src ="/src/assets/addIcon.svg" className="w-12 h-12 mb-4" alt="manage bookmarks icon" />
+                                <img src ={addIcon} className="w-12 h-12 mb-4" alt="manage bookmarks icon" />
                             </div>
                             <h4 className="text-gray-900 font-bold text-lg ">Manage Bookmarks</h4>
                             <p className="text-gray-500">Easily add, edit, or delete bookmarks with a clean intuitive interface</p>
@@ -42,7 +44,7 @@ const Home = () => {
 
                         <div className="bg-gray-50 p-6 rounded-2xl shadow-lg transform hover:translate-y-1 transition-all duration-300">
                             <div className="flex justify-start">
-                                <img src="/src/assets/categorizeLogo.svg" className="w-12 h-12 mb-4" alt="Categorization logo"/>
+                                <img src={categorizeLogo} className="w-12 h-12 mb-4" alt="Categorization logo"/>
                             </div>
                             <h4 className="text-gray-900 text-lg font-bold">Smart Categorization</h4>
                             <p className="text-gray-500">Organize bookmarks into categories like work or Learning for quick access.</p>
@@ -50,7 +52,7 @@ const Home = () => {
 
                         <div className="bg-gray-50 p-6 rounded-2xl shadow-lg transform hover:translate-y-1 transition-all duration-300">
                             <div className="flex justify-start">
-                                <img src="/src/assets/secureLogo.svg" className="w-12 h-12 mb-4" alt="Secure Authenication Logo"/>
+                                <img src={secureLogo} className="w-12 h-12 mb-4" alt="Secure Authenication Logo"/>
                             </div>
                             <h4 className="text-gray-900 font-bold text-lg">Secure Authentication</h4>
                             <p className="text-gray-500">Log in securely with email/password or OAuth, powered by Appwrite's robust auth system.</p>
@@ -58,7 +60,7 @@ const Home = () => {
 
                         <div className="bg-gray-50 p-6 rounded-2xl shadow-lg transform hover:translate-y-1 transition-all duration-300">
                             <div className="flex justify-start">
-                                <img src="/src/assets/cloudLogo.svg" className="w-12 h-12 mb-4" alt="Cloud Storage Logo"/>
+                                <img src={cloudLogo} className="w-12 h-12 mb-4" alt="Cloud Storage Logo"/>
                             </div>
                             <h4 className="text-gray-900 text-lg font-bold">Cloud Storage</h4>
                             <p className="text-gray-500">Store bookmarks securely in the cloud with the Appwrite scalable database.</p>
