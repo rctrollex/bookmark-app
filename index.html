@@ -1,13 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/bookmarkLogo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bookmark Haven</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bookmark Haven: Securely organize, manage, and access your favorite links with Appwrite-powered cloud storage and smart categorization." />
+  <meta name="keywords" content="bookmark manager, organize links, secure bookmark storage, Appwrite, link management" />
+  <meta name="author" content="Bookmark Haven Team" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Bookmark Haven - Secure Link Management" />
+  <meta property="og:description" content="Save, categorize, and access your bookmarks securely with Bookmark Haven, powered by Appwrite." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.bookmark-haven.vercel.app/" />
+  <meta property="og:image" content="/src/assets/bookmarkLogo.svg" />
+  <meta property="og:site_name" content="Bookmark Haven" />
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bookmark Haven - Secure Link Management" />
+  <meta name="twitter:description" content="Save, categorize, and access your bookmarks securely with Bookmark Haven, powered by Appwrite." />
+  <meta name="twitter:image" content="/src/assets/bookmarkLogo.svg" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.bookmark-haven.vercel.app/" />
+  <link rel="icon" type="image/svg+xml" href="/bookmarkLogo.svg" />
+  <title>Bookmark Haven - Organize Your Links Securely</title>
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Bookmark Haven",
+      "url": "https://www.bookmark-haven.vercel.app/",
+      "description": "A secure bookmark manager to organize and access your favorite links with Appwrite cloud storage.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.bookmark-haven.vercel.app/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Bookmark Haven",
+      "description": "Bookmark Haven is a secure, cloud-based bookmark manager that allows users to save, categorize, and access links with ease.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Bookmark Haven"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+  </script>
+</head>
+<body>
+<div id="root"></div>
+<script type="module" src="/src/main.jsx"></script>
+</body>
 </html>
