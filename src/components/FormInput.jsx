@@ -1,14 +1,25 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {account, collection_id, database_id, databases, ID, Permission, Role} from "../appwrite/appwriteConfig.js";
 import BookmarkList from "./BookmarkList.jsx";
 
-const FormInput = ({hideOrShowForm, onBookmarkSaved}) => {
+const FormInput = ({hideOrShowForm, onBookmarkSaved, onBookmarkUpdated, editingBookmark}) => {
     const [bookmarkTitle, setBookmarkTitle] = useState('');
     const [bookmarkUrl, setBookmarkUrl] = useState('');
     const [category, setCategory] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage]= useState('')
 
+    useEffect(() => {
+        if(editingBookmark){
+            setBookmarkTitle(editingBookmark.name);
+            setBookmarkUrl(editingBookmark.url);
+            setCategory(editingBookmark.category);
+        }else{
+            setBookmarkTitle('');
+            setBookmarkUrl('');
+            setCategory('');
+        }
+    }, [editingBookmark]);
     const saveBookmark = async (e)=>{
         e.preventDefault();
         if(!bookmarkTitle || !bookmarkUrl || !category){
@@ -18,37 +29,56 @@ const FormInput = ({hideOrShowForm, onBookmarkSaved}) => {
         setSuccessMessage('');
 
         try{
-            //Current user logged in
-            const currentUser = await account.get();
-            const userId = currentUser.$id;
-            //Appwrite permissions
-            const permissions = [
-                Permission.read(Role.user(userId)),
-                Permission.write(Role.user(userId)),
-                Permission.update(Role.user(userId)),
-                Permission.delete(Role.user(userId))
-            ]
+            if (editingBookmark){
+                //Update bookmark
+                const currentUser = await account.get();
+                const userId = currentUser.$id;
+                const updatedBookmark = await databases.updateDocument(
+                    database_id,
+                    collection_id,
+                    editingBookmark.$id,
+                    {
+                        name: bookmarkTitle,
+                        url: bookmarkUrl,
+                        category: category,
+                        userId: userId,
+                    },
+                )
+                onBookmarkUpdated(updatedBookmark);
+                console.log('Bookmark Updated ', updatedBookmark)
+            }else{
+                //Current user logged in
+                const currentUser = await account.get();
+                const userId = currentUser.$id;
+                //Appwrite permissions
+                const permissions = [
+                    Permission.read(Role.user(userId)),
+                    Permission.write(Role.user(userId)),
+                    Permission.update(Role.user(userId)),
+                    Permission.delete(Role.user(userId))
+                ]
 
-            //Save bookmark
-            const response = await databases.createDocument(
-             database_id,
-             collection_id,
-             ID.unique(),
-             {
-                 name: bookmarkTitle,
-                 url: bookmarkUrl,
-                 category: category,
-                 userId: userId,
-             },
-                permissions
-         )
-            console.log(response)
-            setSuccessMessage('Successfully saved bookmark.');
-            onBookmarkSaved();
-            setBookmarkUrl('');
-            setBookmarkTitle('');
-            setCategory('');
-            hideOrShowForm();
+                //Save bookmark
+                const response = await databases.createDocument(
+                    database_id,
+                    collection_id,
+                    ID.unique(),
+                    {
+                        name: bookmarkTitle,
+                        url: bookmarkUrl,
+                        category: category,
+                        userId: userId,
+                    },
+                    permissions
+                )
+                console.log(response)
+                setSuccessMessage('Successfully saved bookmark.');
+                onBookmarkSaved();
+                setBookmarkUrl('');
+                setBookmarkTitle('');
+                setCategory('');
+                hideOrShowForm();
+            }
         }catch (e) {
             console.log("Error saving bookmarks... ",e);
             setErrorMessage("Failed to save bookmark. Please try again.");

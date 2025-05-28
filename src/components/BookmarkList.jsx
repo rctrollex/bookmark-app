@@ -4,7 +4,7 @@ import {account, collection_id, database_id, databases} from "../appwrite/appwri
 import Loader from "./Loader.jsx";
 import {Query} from "appwrite";
 
-const BookmarkList = ({refetchTrigger, filterCategory}) => {
+const BookmarkList = ({refetchTrigger, filterCategory, setEditBookmark}) => {
     const[error, setError] = useState('');
     const[bookmarks, setBookmarks] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -45,6 +45,15 @@ const BookmarkList = ({refetchTrigger, filterCategory}) => {
 
     }
 
+    const handleEdit = (bookmark) => {
+        setEditBookmark({
+            $id: bookmark.$id,
+            name: bookmark.name,
+            url: bookmark.url,
+            category: bookmark.category
+        })
+    }
+
     const filteredBookmarks = filterCategory === 'all'
         ? bookmarks
         : bookmarks.filter(bookmark => bookmark.category === filterCategory);
@@ -57,6 +66,7 @@ const BookmarkList = ({refetchTrigger, filterCategory}) => {
                     url={bookmark.url}
                     category={bookmark.category}
                     handleDelete={()=>handleDelete(bookmark.$id)}
+                    handleEdit={()=>handleEdit(bookmark)}
                 />
             ))}
             <div className="mt-4">

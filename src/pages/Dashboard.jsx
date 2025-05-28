@@ -1,65 +1,76 @@
-import React, {useEffect, useState} from 'react'
-import {Link, useNavigate} from "react-router-dom";
-import FormInput from "../components/FormInput.jsx";
-import {account} from "../appwrite/appwriteConfig.js";
-import BookmarkList from "../components/BookmarkList.jsx";
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import FormInput from '../components/FormInput.jsx';
+import { account } from '../appwrite/appwriteConfig.js';
+import BookmarkList from '../components/BookmarkList.jsx';
 
 const Dashboard = () => {
     const [userName, setUserName] = useState('');
-    const[errorMessage, setErrorMessage] = useState('');
-    const[successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [showForm, setShowForm] = useState(false);
     const [filterCategory, setFilterCategory] = useState('all');
     const [refreshTrigger, setRefreshTrigger] = useState(false);
+    const [editBookmark, setEditBookmark] = useState(null);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const user = await account.get();
-                const currentUser = await account.get();
-                const userId = currentUser.$id;
-                console.log(userId)
-                console.log(user)
                 setUserName(user.name);
-            }catch (e) {
+            } catch (e) {
                 console.error('Error fetching user:', e);
-                setErrorMessage('Failed to load user data. Please try logging again')
-                setTimeout(()=>{
-                    navigate('/login')
+                setErrorMessage('Failed to load user data. Please try logging in again');
+                setTimeout(() => {
+                    navigate('/login');
                 }, 1500);
             }
         };
-        fetchUser()
+        fetchUser();
     }, [navigate]);
+
     const handleLogOut = async (e) => {
         e.preventDefault();
         setErrorMessage('');
         setSuccessMessage('');
         setIsLoading(true);
-        try{
-            await account.deleteSession('current')
-            setSuccessMessage("Logging Out...");
+        try {
+            await account.deleteSession('current');
+            setSuccessMessage('Logging Out...');
             setTimeout(() => {
                 navigate('/');
-            },1500);
-        }catch (e) {
-            console.error("Log out error...",e)
+            }, 1500);
+        } catch (e) {
+            console.error('Log out error...', e);
             setErrorMessage('Failed to log out. Please try again.');
-        }finally {
+        } finally {
             setIsLoading(false);
         }
-    }
+    };
 
-    const hideOrShowForm = () =>{
-        setShowForm(!showForm)
-    }
+    const hideOrShowForm = () => {
+        setShowForm(!showForm);
+        if (showForm) setEditBookmark(null); // Clear editBookmark when closing form
+    };
 
-    const handleBookmardSaved = () =>{
+    const handleBookmarkSaved = () => {
         setRefreshTrigger(!refreshTrigger);
         setShowForm(false);
-    }
+        setEditBookmark(null); // Clear editBookmark after save
+    };
+
+    const handleBookmarkUpdated = () => {
+        setRefreshTrigger(!refreshTrigger);
+        setShowForm(false);
+        setEditBookmark(null); // Clear editBookmark after update
+    };
+
+    const showFormForEdit = (bookmark) => {
+        setEditBookmark(bookmark);
+        setShowForm(true);
+    };
 
     return (
         <>
@@ -74,37 +85,48 @@ const Dashboard = () => {
                             <button
                                 id="logout-btn"
                                 disabled={isLoading}
-                                className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg shadow-md hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 cursor-pointer">
+                                className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg shadow-md hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 cursor-pointer"
+                            >
                                 {isLoading ? 'Logging Out...' : 'Log Out'}
                             </button>
                         </form>
-
                     </div>
                 </div>
             </nav>
 
-            <section className="container mx-auto  px-4 pt-20 pb-16">
+            <section className="container mx-auto px-4 pt-20 pb-16">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 mt-4">
                     <h2 className="text-3xl font-bold text-gray-900">Your Bookmarks</h2>
                     <div className="flex space-x-4 mt-4 md:mt-0">
-                        <select id="category-filter"
-                                className="p-2 bg-white  rounded-lg border-0 focus:ring-2 focus:ring-blue-500"
-                                onChange={(e) => setFilterCategory(e.target.value)}>
+                        <select
+                            id="category-filter"
+                            className="p-2 bg-white rounded-lg border-0 focus:ring-2 focus:ring-blue-500"
+                            onChange={(e) => setFilterCategory(e.target.value)}
+                        >
                             <option value="all">All Categories</option>
                             <option value="work">Work</option>
                             <option value="ideas">Ideas</option>
                             <option value="personal">Personal</option>
                             <option value="learning">Learning</option>
                         </select>
-                        <button id="add-bookmark-btn"
-                                onClick={hideOrShowForm}
-                                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
-                            {showForm ? 'Hide Form': 'Add Bookmark'}
+                        <button
+                            id="add-bookmark-btn"
+                            onClick={hideOrShowForm}
+                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
+                        >
+                            {showForm ? 'Hide Form' : 'Add Bookmark'}
                         </button>
                     </div>
                 </div>
 
-                {showForm && <FormInput hideOrShowForm={hideOrShowForm} onBookmarkSaved={handleBookmardSaved} />}
+                {showForm && (
+                    <FormInput
+                        hideOrShowForm={hideOrShowForm}
+                        onBookmarkSaved={handleBookmarkSaved}
+                        onBookmarkUpdated={handleBookmarkUpdated}
+                        editingBookmark={editBookmark}
+                    />
+                )}
                 <div className="text-center mt-4">
                     {errorMessage && <p className="text-red-600">{errorMessage}</p>}
                     {successMessage && <p className="text-green-600">{successMessage}</p>}
@@ -114,12 +136,12 @@ const Dashboard = () => {
                     <BookmarkList
                         filterCategory={filterCategory}
                         refetchTrigger={refreshTrigger}
+                        setEditBookmark={showFormForEdit} // Pass callback to open form
                     />
                 </div>
             </section>
+        </>
+    );
+};
 
-
-            </>
-    )
-}
-export default Dashboard
+export default Dashboard;
