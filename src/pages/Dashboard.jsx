@@ -76,16 +76,15 @@ const Dashboard = () => {
         <>
             <nav className="bg-white shadow-sm fixed w-full z-10">
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                    <h1 className="sm:text-lg lg:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+                    <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
                         Bookmark Haven
                     </h1>
-                    <div className="flex space-x-4 items-center">
-                        <span className="text-gray-600">Welcome, {userName}</span>
+                    <div className="flex flex-row gap-2 space-x-4 items-center">
                         <form onSubmit={handleLogOut}>
                             <button
                                 id="logout-btn"
                                 disabled={isLoading}
-                                className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg shadow-md hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 cursor-pointer"
+                                className="bg-gradient-to-r from-red-600 to-red-700 text-white px-3 sm:px-4 py-2 rounded-lg shadow-md hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 cursor-pointer"
                             >
                                 {isLoading ? 'Logging Out...' : 'Log Out'}
                             </button>
@@ -95,12 +94,15 @@ const Dashboard = () => {
             </nav>
 
             <section className="container mx-auto px-4 pt-20 pb-16">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 mt-4">
-                    <h2 className="text-3xl font-bold text-gray-900">Your Bookmarks</h2>
-                    <div className="flex space-x-4 mt-4 md:mt-0">
+                <div className="mb-0 mt-4">
+                    <h4 className="text-gray-600 text-sm sm:text-base lg:text-xl ">Welcome, {userName}</h4>
+                </div>
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 mt-4">
+                    <h2 className="text-2xl sm:text-3xl  font-bold text-gray-900">Your Bookmarks</h2>
+                    <div className="flex gap-2 sm:gap-4 mt-3 sm:mt-0">
                         <select
                             id="category-filter"
-                            className="p-2 bg-white rounded-lg border-0 focus:ring-2 focus:ring-blue-500"
+                            className="p-2 sm:p-3 bg-white rounded-lg border-0 focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
                             onChange={(e) => setFilterCategory(e.target.value)}
                         >
                             <option value="all">All Categories</option>
@@ -112,7 +114,7 @@ const Dashboard = () => {
                         <button
                             id="add-bookmark-btn"
                             onClick={hideOrShowForm}
-                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
+                            className="bg-blue-600 text-white px-3 sm:px-4 py-2 sm:py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer text-sm sm:text-base"
                         >
                             {showForm ? 'Hide Form' : 'Add Bookmark'}
                         </button>

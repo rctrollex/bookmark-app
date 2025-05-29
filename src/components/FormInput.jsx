@@ -88,40 +88,40 @@ const FormInput = ({hideOrShowForm, onBookmarkSaved, onBookmarkUpdated, editingB
     }
     return (
         <div className="bg-white container mx-auto p-8 mt-5 text-gray-900 rounded-xl shadow-xl">
-            <h2 className="text-xl font-semibold mb-4">Add New Bookmark</h2>
+            <h2 className="text-lg sm:text-xl font-semibold mb-4">Add New Bookmark</h2>
             <div className="py-2">
                 <form onSubmit={saveBookmark}>
-                    <div className="mb-3">
-                        <label htmlFor="title" className="block text-gray-600 mb-3">Name</label>
+                    <div className="mb-4">
+                        <label htmlFor="title" className="block text-gray-600 mb-3 text-sm sm:text-base">Name</label>
                         <input
                             type="text"
                             id="title"
                             value={bookmarkTitle}
                             placeholder="Tailwind Documentation"
                             onChange={(e) => setBookmarkTitle(e.target.value)}
-                            className="w-full bg-gray-100 p-4 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none transition-all duration-300"
+                            className="w-full bg-gray-100 p-3 sm:p-4 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none transition-all duration-300"
                         />
                     </div>
 
-                    <div className="mb-3">
-                        <label htmlFor="url" className="block text-gray-600 mb-3">URL</label>
+                    <div className="mb-4">
+                        <label htmlFor="url" className="block text-gray-600 mb-3 text-sm sm:text-base">URL</label>
                         <input
                             type="url"
                             id="url"
                             placeholder="https://tailwindcss.com/docs"
-                            className="w-full bg-gray-100 p-4 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none transition-all duration-300"
+                            className="w-full bg-gray-100 p-3 sm:p-4 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none transition-all duration-300"
                             value={bookmarkUrl}
                             onChange={(e)=>setBookmarkUrl(e.target.value)}
                         />
                     </div>
 
-                    <div className="mb-5">
-                        <label htmlFor="category" className="block text-gray-600 mb-3">Category</label>
+                    <div className="mb-4">
+                        <label htmlFor="category" className="block text-gray-600 mb-2 text-sm sm:text-base">Category</label>
                         <select
                             id="category"
                             value={category}
                             onChange={(e)=>setCategory(e.target.value)}
-                            className="w-full bg-gray-100 p-4 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none transition-all duration-300"
+                            className="w-full bg-gray-100 p-3 sm:p-4 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none transition-all duration-300"
                         >
                             <option value="">Select a category</option>
                             <option value="work">Work</option>
@@ -130,9 +130,9 @@ const FormInput = ({hideOrShowForm, onBookmarkSaved, onBookmarkUpdated, editingB
                             <option value="learning">Learning</option>
                         </select>
                     </div>
-                    <div className="mb-4 flex justify-start space-x-2">
-                        <button className="bg-indigo-600 px-5 py-3 rounded-lg shadow-md hover:bg-indigo-800 cursor-pointer text-white inline" type="submit">Save</button>
-                        <button className="bg-gray-200 px-5 py-3 rounded-lg shadow-md hover:bg-gray-400 cursor-pointer text-gray-900 inline" type = "button" onClick={hideOrShowForm}>Cancel</button>
+                    <div className="mb-4 flex justify-start gap-2 sm:gap-3">
+                        <button className="bg-indigo-600 px-4 sm:px-5 py-2 sm:py-3 rounded-lg shadow-md hover:bg-indigo-800 cursor-pointer text-white inline text-sm sm:text-base" type="submit">Save</button>
+                        <button className="bg-gray-200 px-4 sm:px-5 py-2 sm:py-3 rounded-lg shadow-md hover:bg-gray-400 cursor-pointer text-gray-900 inline text-sm sm:text-base" type = "button" onClick={hideOrShowForm}>Cancel</button>
                     </div>
                     <div className="mt-4">
                         {errorMessage && <p className="text-red-600">{errorMessage}</p>}
