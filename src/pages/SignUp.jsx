@@ -54,14 +54,14 @@ const SignUp = () => {
                             <div>
                                 <label
                                     htmlFor="name"
-                                    className="block text-sm font-medium text-gray-700">
+                                    className="block text-sm sm:text-base font-medium text-gray-700">
                                     Name
                                 </label>
                                 <input
                                     id="name"
                                     type="text"
                                     placeholder="John Doe"
-                                    className="w-full p-4 mt-2 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-gray-100 transition-all duration-300 mb-4"
+                                    className="w-full p-4 mt-2 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none bg-gray-100 transition-all duration-300 mb-4 text-sm sm:text-base"
                                     value={name}
                                     onChange={(e)=>setName(e.target.value)}
                                     disabled={isLoading}
@@ -70,26 +70,26 @@ const SignUp = () => {
                             <div>
                                 <label
                                     htmlFor="email"
-                                    className="block text-sm font-medium text-gray-700">
+                                    className="block text-sm sm:text-base font-medium text-gray-700">
                                     Email
                                 </label>
                                 <input
                                     id="email"
                                     type="email"
                                     placeholder="you@example.com"
-                                    className="w-full p-4 bg-gray-100 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none transition-all duration-300 mb-4"
+                                    className="w-full p-4 bg-gray-100 rounded-lg shadow-md border-0 focus:ring-2 focus:ring-indigo-600 focus:outline-none transition-all duration-300 mb-4 text-sm sm:text-base"
                                     value={email}
                                     onChange={(e)=>setEmail(e.target.value)}
                                     disabled={isLoading}
                                 />
                             </div>
                             <div>
-                                <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                                <label htmlFor="password" className="block text-sm sm:text-base font-medium text-gray-700">Password</label>
                                 <input
                                     id="password"
                                     type="password"
                                     placeholder="•••••••"
-                                    className="w-full p-3 mt-1 rounded-lg border-0 shadow-md focus:ring-2 focus:outline-none focus:ring-indigo-600 bg-gray-100 transition-all duration-300s mb-4"
+                                    className="w-full p-3 mt-1 rounded-lg border-0 shadow-md focus:ring-2 focus:outline-none focus:ring-indigo-600 bg-gray-100 transition-all duration-300s mb-4 text-sm sm:text-base"
                                     value={password}
                                     onChange={(e)=>setPassword(e.target.value)}
                                     disabled={isLoading}
@@ -97,16 +97,16 @@ const SignUp = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full text-white bg-gradient-to-r from-blue-600 to-indigo-600 p-3 mt-1 rounded-lg shadow-lg cursor-pointer hover:from-blue-800 hover:to-indigo-800 mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full text-white bg-gradient-to-r from-blue-600 to-indigo-600 p-3 mt-1 rounded-lg shadow-lg cursor-pointer hover:from-blue-800 hover:to-indigo-800 mb-4 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                                 disabled={isLoading}>
                                 {isLoading ? 'Signing Up...' : 'Sign Up'}
                             </button>
 
                             <div className="text-center">
-                                <p className="text-gray-600">Don't have an account? <Link to="/login" className="text-indigo-600">Log In</Link></p>
-                                <p className="text-indigo-600"><Link to="/">Back to Home</Link></p>
+                                <p className="text-gray-600 text-sm sm:text-base">Don't have an account? <Link to="/login" className="text-indigo-600">Log In</Link></p>
+                                <p className="text-indigo-600 text-sm sm:text-base"><Link to="/">Back to Home</Link></p>
                             </div>
-                            <div className="text-center mt-4">
+                            <div className="text-center mt-2">
                                 {errorMessage && <p className="text-red-500">{errorMessage}</p>}
                                 {successMessage && <p className="text-green-500">{successMessage}</p>}
                             </div>
