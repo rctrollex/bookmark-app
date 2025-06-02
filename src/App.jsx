@@ -7,7 +7,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 
 const App = () => {
     return (
-        <div className="bg-gray-200 min-h-screen font-sans">
+        <div className="font-sans">
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="signup" element={<SignUp/>}/>
